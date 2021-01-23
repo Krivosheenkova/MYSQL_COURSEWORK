@@ -7,6 +7,6 @@
 * [Скрипты создания структуры БД](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/CREATE.sql)
 * [ER-диаграмма](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/real_estate_diagram.mvb)
 * [Скрипты наполнения БД данными](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/INSERT.sql)
-* [Характерные выборки](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/real_estate_diagram.mvb)
+* [Характерные выборки](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/SELECT.sql)
 * [Представления](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/VIEW.sql)
 * [Процедуры / Триггеры](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/PROCEDURE_TRIGGER.sql)
