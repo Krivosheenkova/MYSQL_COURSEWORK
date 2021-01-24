@@ -1,3 +1,5 @@
+-- Данная процедура позволяет внести в таблицу показов недвижимости новую запись
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS shedule_show;
 CREATE PROCEDURE shedule_show(request_id INT(4), property_id INT(4))
@@ -17,7 +19,7 @@ SELECT * FROM real_estate_database.show_property_meet;
 +------+-------------+-----------+------------+---------+---------------------+--------+
 1 row in set (0.00 sec)
 						
-
+-- Процедура записи нового заключенного контракта
 DROP PROCEDURE IF EXISTS `add_contract`//
 CREATE PROCEDURE `add_contract`(`request_id` INT(4) ZEROFILL, `property_id` INT(4) ZEROFILL, 
 `client_id` INT(4) ZEROFILL, `fee_percent` INT(2), `contract_type` INT(4), `prepayment_sum` DECIMAL(10, 2))
