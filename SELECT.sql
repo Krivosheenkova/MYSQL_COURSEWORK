@@ -10,3 +10,4 @@ SELECT `id`, (SELECT `property_type`.`type` FROM `property_type` WHERE `id` = `p
              `details` 'Описание', `price` "Цена",
              IF(`is_new_building` = 1, 'Новостройка', '') AS ""             
 FROM `property` WHERE `transaction_id` = 5003;
+
