@@ -8,7 +8,7 @@ SELECT `id`, (SELECT `property_type`.`type` FROM `property_type` WHERE `id` = `p
              (SELECT CONCAT_WS(' ', `surname`, `name`, `patronymic`) `t` FROM `client` WHERE `id` = `property`.`owner_client_id`) 'Полное имя собственника',
              `address` 'Адрес', `floor` 'Этаж', `rooms` 'Комнат', `square` 'Площадь', `bedrooms` 'Спален', `bathrooms` 'Санузлов',
              `details` 'Описание', `price` "Цена",
-             IF(`is_new_building` = 1, 'Новостройка', '') AS ""             
+             IF(`is_new_building` = 1, 'Новостройка', '') ''             
 FROM `property` WHERE `transaction_id` = 5003;
 +------+-----------------------+------------------------+---------------------------+------------+---------------------------+---------------------------------------------+--------+---------+---------+---------+-----------+-----------+-------------+-------------+
 | id   | Тип недвижимости      | Административный округ | Район                     | Тип сделки | Полное имя собственника   | Адрес                                       | Этаж   | Комнат  | Площадь | Спален  | Санузлов  | Описание  | Цена        |             |
@@ -23,20 +23,22 @@ FROM `property` WHERE `transaction_id` = 5003;
 +------+-----------------------+------------------------+---------------------------+------------+---------------------------+---------------------------------------------+--------+---------+---------+---------+-----------+-----------+-------------+-------------+
 
 -- Запрос на заработок риелторского агентства за текущий год
-SELECT SUM(ROUND(price * (fee_percentage / 100), 2)) 
-	FROM contract INNER JOIN property ON contract.property_id = property.id
-	WHERE YEAR(contract.`date`) = YEAR(NOW());
+
+SELECT SUM(ROUND(`price` * (`fee_percentage` / 100), 2)) 
+	FROM `contract` INNER JOIN `property` ON `contract`.`property_id` = `property`.`id`
+	WHERE YEAR(`contract`.`date`) = YEAR(NOW());
 +------------------------------------+
 | Прибыль за текущий год             |
 +------------------------------------+
 |                         2910037.14 |
 +------------------------------------+
 
--- Небольшой вложенный запрос на среднюю цену на недвижимость каждого типа					   
+-- Небольшой вложенный запрос на среднюю цену на недвижимость каждого типа
+					     
 SELECT `property_type`.`type` 'Тип недвижимости', 
-	(SELECT COUNT(*) FROM property WHERE property.property_type_id = property_type.id) `Количество активных`,
-        (SELECT AVG(price) FROM property WHERE property.property_type_id = property_type.id) `Средняя цена`
-FROM property_type ORDER BY `Количество активных` DESC;
+	(SELECT COUNT(*) FROM `property` WHERE `property`.`property_type_id` = `property_type`.`id`) `Количество активных`,
+        (SELECT AVG(`price`) FROM `property` WHERE `property`.`property_type_id` = `property_type`.`id`) `Средняя цена`
+FROM `property_type` ORDER BY `Количество активных` DESC;
 +--------------------------+------------------------+-------------------------+
 | Тип недвижимости         | Количество активных    | Средняя цена            |
 +--------------------------+------------------------+-------------------------+
@@ -55,5 +57,3 @@ FROM property_type ORDER BY `Количество активных` DESC;
 | Здание                   |                      0 |                    NULL |
 | Гараж                    |                      0 |                    NULL |
 +--------------------------+------------------------+-------------------------+
-					   
-					
