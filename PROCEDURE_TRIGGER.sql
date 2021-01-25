@@ -15,7 +15,7 @@ SELECT * FROM real_estate_database.show_property_meet;
 +------+-------------+-----------+------------+---------+---------------------+--------+
 | id   | property_id | client_id | realtor_id | comment | date                | status |
 +------+-------------+-----------+------------+---------+---------------------+--------+
-| 0001 |        0015 |      0005 |       0012 | NULL    | 2021-01-24 04:08:49 |      1 |
+| 0001 |        0015 |      0005 |       0012 | NULL    | 2021-01-24 04:20:49 |      1 |
 +------+-------------+-----------+------------+---------+---------------------+--------+
 1 row in set (0.00 sec)
 						
@@ -42,9 +42,35 @@ SELECT * FROM contract;
 +------+---------------+-------------+------------+----------------+------------------+------------+-------------+----------------+---------------------+
 | id   | counteragents | property_id | realtor_id | transaction_id | contract_type_id | prepayment | payment_sum | fee_percentage | date                |
 +------+---------------+-------------+------------+----------------+------------------+------------+-------------+----------------+---------------------+
-| 4001 | 0018, 0002    |        0011 |       0005 |           5003 |             1003 |  100000.00 | 16604472.40 |              5 | 2021-01-24 04:05:46 |
+| 4001 | 0018, 0002    |        0011 |       0005 |           5003 |             1003 |  100000.00 | 16604472.40 |              5 | 2021-01-24 04:20:46 |
 +------+---------------+-------------+------------+----------------+------------------+------------+-------------+----------------+---------------------+
 1 row in set (0.00 sec)
+			
 												    
+-- триггер на проверку данных при вставке в таблицу client
 												    
+DROP TRIGGER IF EXISTS client_data_validate//
+CREATE TRIGGER client_data_validate BEFORE INSERT ON `client` FOR EACH ROW
+BEGIN
+	CASE
+		WHEN passport IS NOT NULL AND LENGTH(passport) <> 11
+        		THEN SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Invalide passport';
+       		WHEN email NOT LIKE '%@%.%' THEN
+        		SIGNAL SQLSTATE '45000'
+        		SET MESSAGE_TEXT = 'Invalide email';
+        	WHEN phone NOT BETWEEN 79000000000 AND 79999999999 THEN
+        		SIGNAL SQLSTATE '45000'
+        		SET MESSAGE_TEXT = 'Invalide phone number';
+        	WHEN LENGTH(requisites) <> 18 THEN
+        		SIGNAL SQLSTATE '45000'
+        		SET MESSAGE_TEXT = 'Invalide requisites';
+        	WHEN LENGTH(`ITN/TIN`) <> 10 THEN
+        		SIGNAL SQLSTATE '45000'
+        		SET MESSAGE_TEXT = 'Invalide ITN/TIN';
+        	WHEN LENGTH(`IEC`) <> 9 THEN
+       			SIGNAL SQLSTATE '45000'
+        		SET MESSAGE_TEXT = 'Invalide IEC';
+    END CASE;
+END//												    
 												 
