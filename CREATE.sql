@@ -219,5 +219,3 @@ CREATE TABLE `contract` (
   CONSTRAINT `contract_ibfk_5` FOREIGN KEY (`realtor_id`) REFERENCES `realtor` (`id`),
   CONSTRAINT `fk_contract_1` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`)
 );
-
-* [Перейти в DIRECTORY](https://github.com/Krivosheenkova/MYSQL_COURSEWORK/blob/main/DIRECTORY.md) 
