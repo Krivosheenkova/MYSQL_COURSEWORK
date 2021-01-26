@@ -172,9 +172,10 @@ INSERT INTO `request` VALUES
 
 --
 -- data for table `show_property_meet`
--- для заполнения данной таблицы существует процедура schedule_show(request_id, property_id)
+-- для заполнения данной таблицы существует процедура `shedule_show`(`request_id`, `property_id`)
 
 
 --
 -- data for table `contract`
--- а для этой - add_contract()
+-- а для этой - `add_contract`(`request_id`, `property_id`, `client_id`, `fee_percent`, `contract_type`, `prepayment_sum`)
+
